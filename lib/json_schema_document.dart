@@ -58,6 +58,7 @@ class JsonSchema {
       : type = stringToJsonSchemaType[map['type']] ?? JsonSchemaType.none,
         annotations = {},
         title = map['title'],
+        description = map['description'],
         required = map['required'] ?? List.empty(),
         enum_ = map['enum'] ?? [],
         properties = {};
