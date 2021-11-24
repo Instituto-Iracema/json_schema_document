@@ -1,6 +1,8 @@
 /// A library to handle JSON Schema Documents.
 library json_schema_document;
 
+import 'dart:convert' as convert;
+
 /// An instance has one of six primitive types, and a range of possible values depending on the type:
 
 /// - null:
@@ -59,9 +61,22 @@ class JsonSchema {
         annotations = {},
         title = map['title'],
         description = map['description'],
-        required = map['required'] ?? List.empty(),
+        required = map['required'] is List
+            ? (map['required'] as List).whereType<String>().toList()
+            : List.empty(),
         enum_ = map['enum'] ?? [],
-        properties = {};
+        _source = map,
+        properties = map['properties'] is Map<String, dynamic>
+            ? (map['properties'] as Map<String, dynamic>)
+                .map<String, JsonSchema>(
+                (key, value) => MapEntry(
+                  key,
+                  JsonSchema.fromMap(
+                    value,
+                  ),
+                ),
+              )
+            : {};
 
   /// A descriptive title of the element.
   String? title;
@@ -115,6 +130,14 @@ class JsonSchema {
   ///
   /// An instance validates successfully against this keyword if its value is equal to the value of the keyword.
   dynamic const_;
+
+  Map<String, dynamic> _source;
+
+  @override
+  String toString() {
+    convert.JsonEncoder encoder = const convert.JsonEncoder.withIndent('  ');
+    return encoder.convert(_source);
+  }
 }
 
 Map<String, JsonSchemaType> stringToJsonSchemaType = {
