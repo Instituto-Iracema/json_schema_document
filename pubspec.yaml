@@ -1,7 +1,7 @@
 name: json_schema_document
 description: A library for handling JSON Schema Documents.
 version: 0.0.1
-homepage:
+repository: https://github.com/Instituto-Iracema/json_schema_document
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
