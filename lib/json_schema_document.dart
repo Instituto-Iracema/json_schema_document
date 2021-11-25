@@ -64,6 +64,7 @@ class JsonSchema {
         required = map['required'] is List
             ? (map['required'] as List).whereType<String>().toList()
             : List.empty(),
+        userInterface = map['userInterface'] ?? {},
         enum_ = map['enum'] ?? [],
         _source = map,
         properties = map['properties'] is Map<String, dynamic>
@@ -114,6 +115,9 @@ class JsonSchema {
   ///
   /// Omitting this keyword has the same behavior as an empty array.
   List<String> required;
+
+  // TODO: Add description
+  Map<String, dynamic> userInterface;
 
   /// ### 6.1.2. enum
   /// The value of this keyword MUST be an array. This array SHOULD have at least one element. Elements in the array SHOULD be unique.
