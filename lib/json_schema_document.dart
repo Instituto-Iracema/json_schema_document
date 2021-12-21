@@ -65,6 +65,8 @@ class JsonSchema {
             ? (map['required'] as List).whereType<String>().toList()
             : List.empty(),
         userInterface = map['userInterface'] ?? {},
+        readOnly = map['readOnly'] ?? false,
+        writeOnly = map['writeOnly'] ?? false,
         enum_ = map['enum'] ?? [],
         _source = map,
         properties = map['properties'] is Map<String, dynamic>
@@ -134,6 +136,79 @@ class JsonSchema {
   ///
   /// An instance validates successfully against this keyword if its value is equal to the value of the keyword.
   dynamic const_;
+
+  /// ### 9.4. "readOnly" and "writeOnly"
+
+  /// The value of these keywords MUST be a boolean. When multiple occurrences \
+  ///  of these keywords are applicable to a single sub-instance, the resulting \
+  ///  behavior SHOULD be as for a true value if any occurrence specifies a true \
+  ///  value, and SHOULD be as for a false value otherwise.
+  ///
+  /// If "readOnly" has a value of boolean true, it indicates that the value of \
+  ///  the instance is managed exclusively by the owning authority, and attempts \
+  ///  by an application to modify the value of this property are expected to be \
+  ///  ignored or rejected by that owning authority.
+  ///
+  /// An instance document that is marked as "readOnly" for the entire document \
+  ///  MAY be ignored if sent to the owning authority, or MAY result in an error, \
+  ///  at the authority's discretion.
+  ///
+  /// If "writeOnly" has a value of boolean true, it indicates that the value  \
+  /// is never present when the instance is retrieved from the owning authority. \
+  ///  It can be present when sent to the owning authority to update or create  \
+  /// the document (or the resource it represents), but it will not be included in \
+  ///  any updated or newly created version of the instance.
+  ///
+  /// An instance document that is marked as "writeOnly" for the entire document \
+  ///  MAY be returned as a blank document of some sort, or MAY produce an error \
+  ///  upon retrieval, or have the retrieval request ignored, at the authority's \
+  ///  discretion.
+  ///
+  /// For example, "readOnly" would be used to mark a database-generated serial \
+  /// number as read-only, while "writeOnly" would be used to mark a password input field.
+  ///
+  /// These keywords can be used to assist in user interface instance generation. \
+  ///  In particular, an application MAY choose to use a widget that hides input  \
+  /// values as they are typed for write-only fields.
+  ///
+  /// Omitting these keywords has the same behavior as values of false.
+  bool readOnly;
+
+  /// ### 9.4. "readOnly" and "writeOnly"
+  /// The value of these keywords MUST be a boolean. When multiple occurrences \
+  ///  of these keywords are applicable to a single sub-instance, the resulting \
+  ///  behavior SHOULD be as for a true value if any occurrence specifies a true \
+  ///  value, and SHOULD be as for a false value otherwise.
+  ///
+  /// If "readOnly" has a value of boolean true, it indicates that the value of \
+  ///  the instance is managed exclusively by the owning authority, and attempts \
+  ///  by an application to modify the value of this property are expected to be \
+  ///  ignored or rejected by that owning authority.
+  ///
+  /// An instance document that is marked as "readOnly" for the entire document \
+  ///  MAY be ignored if sent to the owning authority, or MAY result in an error, \
+  ///  at the authority's discretion.
+  ///
+  /// If "writeOnly" has a value of boolean true, it indicates that the value  \
+  /// is never present when the instance is retrieved from the owning authority. \
+  ///  It can be present when sent to the owning authority to update or create  \
+  /// the document (or the resource it represents), but it will not be included in \
+  ///  any updated or newly created version of the instance.
+  ///
+  /// An instance document that is marked as "writeOnly" for the entire document \
+  ///  MAY be returned as a blank document of some sort, or MAY produce an error \
+  ///  upon retrieval, or have the retrieval request ignored, at the authority's \
+  ///  discretion.
+  ///
+  /// For example, "readOnly" would be used to mark a database-generated serial \
+  /// number as read-only, while "writeOnly" would be used to mark a password input field.
+  ///
+  /// These keywords can be used to assist in user interface instance generation. \
+  ///  In particular, an application MAY choose to use a widget that hides input  \
+  /// values as they are typed for write-only fields.
+  ///
+  /// Omitting these keywords has the same behavior as values of false.
+  bool writeOnly;
 
   Map<String, dynamic> _source;
 
