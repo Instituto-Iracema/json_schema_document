@@ -67,7 +67,7 @@ class JsonSchema {
         userInterface = map['userInterface'] ?? {},
         readOnly = map['readOnly'] ?? false,
         writeOnly = map['writeOnly'] ?? false,
-        enum_ = map['enum'] ?? [],
+        enum_ = map['enum'],
         _source = map,
         properties = map['properties'] is Map<String, dynamic>
             ? (map['properties'] as Map<String, dynamic>)
@@ -127,7 +127,7 @@ class JsonSchema {
   /// An instance validates successfully against this keyword if its value is equal to one of the elements in this keyword's array value.
   ///
   /// Elements in the array might be of any type, including null.
-  List<dynamic> enum_;
+  List<dynamic>? enum_;
 
   /// ### 6.1.3. const
   /// The value of this keyword MAY be of any type, including null.
