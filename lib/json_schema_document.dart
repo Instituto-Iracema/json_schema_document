@@ -67,6 +67,9 @@ class JsonSchema {
         userInterface = map['userInterface'] ?? {},
         readOnly = map['readOnly'] ?? false,
         writeOnly = map['writeOnly'] ?? false,
+        default_ = map['default'],
+        minimum = map['minimum'],
+        examples = map['examples'],
         enum_ = map['enum'],
         _source = map,
         properties = map['properties'] is Map<String, dynamic>
@@ -136,6 +139,22 @@ class JsonSchema {
   ///
   /// An instance validates successfully against this keyword if its value is equal to the value of the keyword.
   dynamic const_;
+
+  /// ### 6.1.4. default
+  /// The value of this keyword can be either String, Number or Boolean.
+  dynamic default_;
+
+  /// ### 6.1.5. minimum
+  /// The value of this keyword can be either Number or null.
+  num? minimum;
+
+  /// ### 6.1.6. examples
+  /// The value of this keyword MUST be an array. This array SHOULD have at least one element. Elements in the array SHOULD be unique.
+  ///
+  /// An instance validates successfully against this keyword if its value is equal to one of the elements in this keyword's array value.
+  ///
+  /// Elements in the array might be of any type, including null.
+  List<dynamic>? examples;
 
   /// ### 9.4. "readOnly" and "writeOnly"
 
